@@ -1,7 +1,8 @@
 <script lang="ts">
-	import existeError from '$lib/utiles';
-
+	import { existeError } from '$lib/utils';
+	import { toast } from 'svelte-sonner';
 	import TextBox from '../../components/TextBox.svelte';
+	// import { signIn } from '../../auth';
 
 	let data = {
 		email: '',
@@ -11,8 +12,12 @@
 		email: '',
 		password: ''
 	};
-	const handleSubmit = (event: Event) => {
-		console.log(data, existeError(error));
+	const handleSubmit = async () => {
+		if (!existeError) {
+			console.log(data);
+			// const res = await signIn('credentials', { email: data.email, password: data.password });
+			toast.success('Ingresó correctamente ...');
+		}
 	};
 
 	$: {

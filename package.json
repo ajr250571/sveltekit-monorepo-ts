@@ -36,8 +36,10 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@auth/sveltekit": "^1.1.0",
 		"@prisma/client": "^5.14.0",
 		"axios": "^1.7.2",
+		"svelte-sonner": "^0.3.24",
 		"theme-change": "^2.5.0"
 	}
 }
