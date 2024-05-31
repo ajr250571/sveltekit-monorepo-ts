@@ -1,5 +1,5 @@
 import prisma from "$lib/prisma"
-import { SvelteKitAuth, type User } from "@auth/sveltekit"
+import { SvelteKitAuth } from "@auth/sveltekit"
 import Credentials from "@auth/sveltekit/providers/credentials"
 
 export const { signIn, signOut, handle } = SvelteKitAuth({
@@ -9,9 +9,9 @@ export const { signIn, signOut, handle } = SvelteKitAuth({
                 email: {},
                 password: {},
             },
-            authorize: async (credentials: any) => {
-                let user = await prisma.user.findFirst({
-                    where: { email: credentials.email }
+            authorize: async (credentials) => {
+                const user = await prisma.user.findFirst({
+                    where: { email: credentials.email as string }
                 })
 
                 if (!user) {
