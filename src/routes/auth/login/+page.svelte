@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { existeError } from '$lib/utils';
 	import { toast } from 'svelte-sonner';
-	import TextBox from '../../components/TextBox.svelte';
+	import TextBox from '../../../components/TextBox.svelte';
 	// import { signIn } from '../../auth';
 
 	let data = {
@@ -15,6 +15,7 @@
 	const handleSubmit = async () => {
 		if (!existeError) {
 			console.log(data);
+
 			// const res = await signIn('credentials', { email: data.email, password: data.password });
 			toast.success('Ingresó correctamente ...');
 		}
@@ -56,7 +57,7 @@
 				/>
 				<div class="card-actions justify-end mt-4">
 					<button disabled={existeError(error)} type="submit" class="btn btn-primary"
-						>✔️ Submit</button
+						>✔️ Login</button
 					>
 				</div>
 			</form>

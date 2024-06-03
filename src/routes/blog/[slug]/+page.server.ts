@@ -1,9 +1,9 @@
 import prisma from '$lib/prisma';
 import type { PageServerLoad } from './$types';
 
-export const load = (async ({params}) => {
+export const load = (async ({ params }) => {
     const data = await prisma.post.findFirst({
-        where: {slug: params.slug }
+        where: { slug: params.slug }
     })
-    return {post: data};
+    return { post: data };
 }) satisfies PageServerLoad;
