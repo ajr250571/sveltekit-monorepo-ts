@@ -25,7 +25,7 @@ export const POST: RequestHandler = async ({ request }) => {
             },
         });
         const { password: _, ...user } = userNew;
-        return Response.json(user, { status: 200 });
+        return Response.json(user, { status: 201 });
     } catch (error: any) {
         return Response.json({ message: error.message }, { status: 500 });
     }

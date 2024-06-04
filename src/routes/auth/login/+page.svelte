@@ -55,7 +55,11 @@
 					error={error.password}
 					required
 				/>
-				<div class="card-actions justify-end mt-4">
+				<div class="flex justify-between mt-4 items-center">
+					<p class="font-bold">No tiene una cuenta?</p>
+					<a class="link link-primary text-2xl" href="/auth/register">Register</a>
+				</div>
+				<div class="card-actions justify-end mt-2">
 					<button disabled={existeError(error)} type="submit" class="btn btn-primary"
 						>✔️ Login</button
 					>

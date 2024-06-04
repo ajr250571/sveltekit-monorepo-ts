@@ -3,6 +3,8 @@
 	import { toast } from 'svelte-sonner';
 	import TextBox from '../../../components/TextBox.svelte';
 	import axios from 'axios';
+	import { redirect } from '@sveltejs/kit';
+	import { goto } from '$app/navigation';
 
 	let data = {
 		name: '',
@@ -20,11 +22,12 @@
 	const handleSubmit = async () => {
 		if (!existeError(error)) {
 			const { confirmPassword, ...user } = data;
-			console.log(user);
-			const response = await axios.post('/api/auth/register', user);
-
-			console.log(response.status);
-			toast.success('Registrado correctamente ...');
+			try {
+				const response = await axios.post('/api/auth/register', user);
+				goto('/auth/login');
+			} catch (error) {
+				console.error('Error al enviar datos:', error);
+			}
 		}
 	};
 
@@ -80,6 +83,10 @@
 					error={error.confirmPassword}
 					required
 				/>
+				<div class="flex justify-between mt-2 items-center">
+					<p class="font-bold">Ya tiene una cuenta?</p>
+					<a class="link link-primary text-2xl" href="/auth/login">Login</a>
+				</div>
 				<div class="card-actions justify-end mt-4">
 					<button disabled={existeError(error)} type="submit" class="btn btn-primary"
 						>✔️ Register</button
