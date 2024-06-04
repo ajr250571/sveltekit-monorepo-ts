@@ -23,10 +23,10 @@
 		if (!existeError(error)) {
 			const { confirmPassword, ...user } = data;
 			try {
-				const response = await axios.post('/api/auth/register', user);
+				await axios.post('/api/auth/register', user);
 				goto('/auth/login');
 			} catch (error) {
-				console.error('Error al enviar datos:', error);
+				toast.error('Ya existe Email registrado ...');
 			}
 		}
 	};
