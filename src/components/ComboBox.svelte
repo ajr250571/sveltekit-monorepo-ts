@@ -1,6 +1,6 @@
 <script lang="ts">
 	export let label;
-	export let value: any;
+	export let value: string;
 	export let choices;
 	export let error = '';
 </script>

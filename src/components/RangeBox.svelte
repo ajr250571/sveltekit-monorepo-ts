@@ -12,25 +12,11 @@
 	<div class="flex justify-between gap-2">
 		<div>
 			<p>Minimo: {min.toLocaleString('es-AR')}</p>
-			<input
-				type="range"
-				min="0"
-				max="1000000"
-				step="1000"
-				bind:value={min}
-				class="range range-primary range-sm"
-			/>
+			<input type="range" min="0" max="1000000" step="1000" bind:value={min} class="range range-primary range-sm" />
 		</div>
 		<div>
 			<p>Maximo: {max.toLocaleString('es-AR')}</p>
-			<input
-				type="range"
-				min="500000"
-				max="1500000"
-				step="1000"
-				bind:value={max}
-				class="range range-primary range-sm"
-			/>
+			<input type="range" min="500000" max="1500000" step="1000" bind:value={max} class="range range-primary range-sm" />
 		</div>
 	</div>
 	{#if error.length > 0}

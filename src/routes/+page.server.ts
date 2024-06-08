@@ -1,17 +1,12 @@
-import prisma from '$lib/prisma';
 import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
-export const load = (async (events) => {
-	const data = await prisma.post.findMany();
-
+export const load: PageServerLoad = async (events) => {
 	const session = await events.locals.auth();
-	if (!session) {
+	if (!session?.user?.id) {
 		redirect(303, `/auth/login`);
 	}
-
 	return {
-		posts: data,
 		session
 	};
-}) satisfies PageServerLoad;
+};
