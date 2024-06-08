@@ -47,6 +47,7 @@
 			<h2 class="card-title text-3xl text-primary">Login</h2>
 			<form on:submit|preventDefault={handleSubmit}>
 				<TextBox type="email" label="Email" bind:value={data.email} error={error.email} required />
+<<<<<<< HEAD
 				<TextBox type="password" label="Password" bind:value={data.password} error={error.password} required />
 				<div class="flex justify-between mt-2 font-semibold">
 					<p>No tiene Cuenta?</p>
@@ -54,6 +55,23 @@
 				</div>
 				<div class="card-actions justify-end mt-4">
 					<button disabled={existeError(error)} type="submit" class="btn btn-primary">✔️ Login</button>
+=======
+				<TextBox
+					type="password"
+					label="Password"
+					bind:value={data.password}
+					error={error.password}
+					required
+				/>
+				<div class="flex justify-between mt-4 items-center">
+					<p class="font-bold">No tiene una cuenta?</p>
+					<a class="link link-primary text-2xl" href="/auth/register">Register</a>
+				</div>
+				<div class="card-actions justify-end mt-2">
+					<button disabled={existeError(error)} type="submit" class="btn btn-primary"
+						>✔️ Login</button
+					>
+>>>>>>> e8e6a82a1470610e8e09b8d6d0fb6032c45e960b
 				</div>
 			</form>
 		</div>

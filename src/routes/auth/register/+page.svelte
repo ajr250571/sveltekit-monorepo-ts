@@ -3,10 +3,15 @@
 	import { toast } from 'svelte-sonner';
 	import TextBox from '$components/TextBox.svelte';
 	import axios from 'axios';
+<<<<<<< HEAD
 	import { goto } from '$app/navigation';
 
 	let patternEmail: RegExp = /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
 	let patternPassword: RegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+=-])[A-Za-z0-9!@#$%^&*()_+=-]{8,}$/;
+=======
+	import { redirect } from '@sveltejs/kit';
+	import { goto } from '$app/navigation';
+>>>>>>> e8e6a82a1470610e8e09b8d6d0fb6032c45e960b
 
 	let data = {
 		name: '',
@@ -23,6 +28,7 @@
 
 	const handleSubmit = async () => {
 		if (!existeError(error)) {
+<<<<<<< HEAD
 			try {
 				await axios.post('/api/auth/register', {
 					name: data.name,
@@ -33,6 +39,14 @@
 				goto('/auth/login');
 			} catch (error) {
 				console.error(error);
+=======
+			const { confirmPassword, ...user } = data;
+			try {
+				await axios.post('/api/auth/register', user);
+				goto('/auth/login');
+			} catch (error) {
+				toast.error('Ya existe Email registrado ...');
+>>>>>>> e8e6a82a1470610e8e09b8d6d0fb6032c45e960b
 			}
 		}
 	};
@@ -70,11 +84,31 @@
 			<form on:submit|preventDefault={handleSubmit}>
 				<TextBox type="text" label="Name" bind:value={data.name} error={error.name} required />
 				<TextBox type="email" label="Email" bind:value={data.email} error={error.email} required />
+<<<<<<< HEAD
 				<TextBox type="password" label="Password" bind:value={data.password} error={error.password} required />
 				<TextBox type="password" label="Confirm Password" bind:value={data.confirmPassword} error={error.confirmPassword} required />
 				<div class="flex justify-between mt-2 font-semibold">
 					<p>Ya tiene Cuenta?</p>
 					<a class="link link-info" href="/auth/login">Login</a>
+=======
+				<TextBox
+					type="password"
+					label="Password"
+					bind:value={data.password}
+					error={error.password}
+					required
+				/>
+				<TextBox
+					type="password"
+					label="Confirm Password"
+					bind:value={data.confirmPassword}
+					error={error.confirmPassword}
+					required
+				/>
+				<div class="flex justify-between mt-2 items-center">
+					<p class="font-bold">Ya tiene una cuenta?</p>
+					<a class="link link-primary text-2xl" href="/auth/login">Login</a>
+>>>>>>> e8e6a82a1470610e8e09b8d6d0fb6032c45e960b
 				</div>
 				<div class="card-actions justify-end mt-4">
 					<button disabled={existeError(error)} type="submit" class="btn btn-primary">✔️ Register</button>
