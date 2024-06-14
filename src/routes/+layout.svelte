@@ -20,7 +20,7 @@
 </script>
 
 <svelte:head>
-	<title>MonoRepo</title>
+	<title>Metegol</title>
 </svelte:head>
 
 <main class="container mx-auto px-2">

@@ -5,7 +5,7 @@
 </script>
 
 <div class="navbar bg-base-100 text-base-content border-b-2 my-2 justify-between items-center">
-	<a href="/" class="btn btn-ghost text-xl">MR</a>
+	<a href="/" class="btn btn-ghost text-xl">MG</a>
 	<ul>
 		{#if !connected}
 			<li>
@@ -21,10 +21,7 @@
 				<button on:click={() => signOut()} class="btn btn-secondary btn-xs mx-1">Logout</button>
 			</li>
 			<li>
-				<a class="btn btn-outline btn-xs mx-1" href="/dashboard">Dash</a>
-			</li>
-			<li>
-				<a class="btn btn-outline btn-xs mx-1" href="/blog">Blog</a>
+				<a class="btn btn-outline btn-xs mx-1" href="/partido">Metegol</a>
 			</li>
 		{/if}
 	</ul>
