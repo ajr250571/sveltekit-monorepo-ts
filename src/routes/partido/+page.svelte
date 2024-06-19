@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import axios from 'axios';
 	import { toast } from 'svelte-sonner';
 
@@ -48,17 +49,18 @@
 		}
 	}
 
-	const handleSubmit = async () => {
+	const handleSubmit = async (e: Event) => {
+		e.preventDefault();
 		if (errorMessage.length === 0) {
 			// Enviar datos al servidor
 			const response = await axios.post('/api/partido', partido);
 			if (response.status === 201) {
 				toast.info('Grabado Correctamente.');
-
 				partido.map((jugador) => {
 					jugador.jugo = false;
 					jugador.gano = false;
 				});
+				goto('/');
 			} else {
 				toast.error('Error al grabar.');
 			}
@@ -68,7 +70,7 @@
 
 <div class="flex flex-col justify-center items-center">
 	{#if partido.length > 0}
-		<form on:submit={handleSubmit}>
+		<form on:submit|once={handleSubmit}>
 			<div class="flex flex-col justify-center items-center">
 				<div class="grid grid-cols-3 gap-x-2 gap-y-2 mb-4">
 					<p class="justify-start">Jugadores</p>

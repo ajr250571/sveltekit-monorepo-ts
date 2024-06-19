@@ -23,6 +23,9 @@
 			<li>
 				<a class="btn btn-outline btn-xs mx-1" href="/partido">Metegol</a>
 			</li>
+			<li>
+				<a class="btn btn-outline btn-xs mx-1" href="/">Ranking</a>
+			</li>
 		{/if}
 	</ul>
 	<select class="select select-secondary select-xs ml-1" data-choose-theme>

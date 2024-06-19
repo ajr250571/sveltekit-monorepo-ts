@@ -18,7 +18,7 @@
 	const handleSubmit = async () => {
 		const { email, password } = data;
 		if (!existeError(error)) {
-			signIn('credentials', { email, password, redirect: false });
+			await signIn('credentials', { email, password, redirect: false });
 			goto('/dashboard');
 
 			// toast.warning('Login incorrecto, reintente.');

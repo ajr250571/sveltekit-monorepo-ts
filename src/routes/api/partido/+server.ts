@@ -1,11 +1,55 @@
 import prisma from '$src/lib/prisma';
 import type { RequestHandler } from './$types';
 
+export const GET = async () => {
+	const jugadores = await prisma.partido.groupBy({
+		by: ['jugadorId'],
+		_count: {
+			puntos: true
+		},
+		_sum: {
+			puntos: true
+		},
+		orderBy: {
+			_sum: {
+				puntos: 'desc'
+			}
+		}
+	});
+	const result = [];
+	for (const jugador of jugadores) {
+		const jugadorNombre = await prisma.jugador.findUnique({
+			where: {
+				id: jugador.jugadorId
+			},
+			select: {
+				nombre: true
+			}
+		});
+		let eficiencia = 0;
+		if (jugador._sum.puntos) {
+			eficiencia = Number(((jugador._sum.puntos * 100) / jugador._count.puntos).toFixed(1));
+		} else {
+			eficiencia = 0;
+		}
+		result.push({
+			id: jugador.jugadorId,
+			nombre: jugadorNombre?.nombre,
+			jugo: jugador._count.puntos,
+			gano: jugador._sum.puntos,
+			eficiencia
+		});
+	}
+	return Response.json(result, { status: 201 });
+};
+
 export const POST: RequestHandler = async ({ request, locals }) => {
 	const session = await locals.auth();
 	if (!session?.user?.id) {
 		return Response.json(null, { status: 401, statusText: 'Unauthorized' });
 	}
+
+	const partidoUUID = crypto.randomUUID();
 
 	// Graba Partido
 	interface Jugador {
@@ -27,7 +71,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 	partido.map((jugador) => {
 		if (jugador.jugo) {
 			data.push({
-				partido: crypto.randomUUID(),
+				partido: partidoUUID,
 				fecha: new Date(),
 				equipo: jugador.gano ? 'Ganador' : 'Perdedor',
 				puntos: jugador.gano ? 1 : 0,
@@ -56,6 +100,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 	await prisma.pareja.create({
 		data: {
 			fecha: new Date(),
+			partido: partidoUUID,
 			pareja: parejaGanadora.slice(0, -1),
 			puntos: 1,
 			userId: Number(session.user.id)
@@ -64,6 +109,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 	await prisma.pareja.create({
 		data: {
 			fecha: new Date(),
+			partido: partidoUUID,
 			pareja: parejaPerdedora.slice(0, -1),
 			puntos: 0,
 			userId: Number(session.user.id)

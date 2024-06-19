@@ -53,6 +53,7 @@ model Partido {
 model Pareja {
   id        Int      @id @default(autoincrement())
   fecha     DateTime
+  partido   String
   pareja    String
   puntos    Int
   createdAt DateTime @default(now())
