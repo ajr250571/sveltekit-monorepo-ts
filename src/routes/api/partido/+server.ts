@@ -2,6 +2,10 @@ import prisma from '$src/lib/prisma';
 import type { RequestHandler } from './$types';
 
 export const GET = async () => {
+	const currentMonth = new Date().getMonth() + 1;
+	const currentYear = new Date().getFullYear();
+	const currentMonthStart = new Date(currentYear, currentMonth - 1, 1);
+	const currentMonthEnd = new Date(currentYear, currentMonth, 0);
 	const jugadores = await prisma.partido.groupBy({
 		by: ['jugadorId'],
 		_count: {
@@ -14,8 +18,17 @@ export const GET = async () => {
 			_sum: {
 				puntos: 'desc'
 			}
+		},
+		where: {
+			createdAt: {
+				gte: currentMonthStart,
+				lte: currentMonthEnd
+			}
 		}
 	});
+	if (!jugadores) {
+		return Response.json({ message: 'Partidos no encontrados...' }, { status: 404 });
+	}
 	const result = [];
 	for (const jugador of jugadores) {
 		const jugadorNombre = await prisma.jugador.findUnique({

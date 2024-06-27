@@ -17,9 +17,11 @@
 			</li>
 		{/if}
 		{#if connected}
+			<!-- 
 			<li>
 				<button on:click={() => signOut()} class="btn btn-secondary btn-xs mx-1">Logout</button>
-			</li>
+			</li> 
+			-->
 			<li>
 				<a class="btn btn-outline btn-xs mx-1" href="/partido">Metegol</a>
 			</li>
@@ -33,5 +35,6 @@
 		<option value="business">Dark</option>
 		<option value="retro">Retro</option>
 		<option value="cyberpunk">Cyber</option>
+		<option value="dracula">Dracula</option>
 	</select>
 </div>
