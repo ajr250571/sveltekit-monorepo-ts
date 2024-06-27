@@ -36,7 +36,7 @@
 <div class="flex flex-col justify-center items-center">
 	<div class="flex flex-row justify-between w-full items-center border-b-2">
 		<div>
-			<h1 class="text-3xl text-primary font-bold">Metegol</h1>
+			<h1 class="text-3xl text-primary font-bold">METEGOL</h1>
 			<p>{data.session.user.name}</p>
 		</div>
 		<button class="btn btn-secondary btm-md rounded-full" on:click={() => signOut()}>Logout</button>
